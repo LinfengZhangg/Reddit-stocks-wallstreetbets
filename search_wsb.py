@@ -21,13 +21,13 @@ api = PushshiftAPI()
 start_time = int(datetime.datetime(2022, 8, 21).timestamp())
 
 submissions = api.search_submissions(after=start_time,
-                                     subreddit='stocks',
+                                     subreddit='wallstreetbets',
                                      filter=['url','author', 'title', 'subreddit'])
                                      
 
 for submission in submissions:
     words = submission.title.split()
-    cashtags = list(set(filter(lambda word: word.lower().startswith('$'), words)))
+    cashtags = list(set(filter(lambda word: word.lower(). words)))
 
     if len(cashtags) > 0:
         print(cashtags)
@@ -40,7 +40,7 @@ for submission in submissions:
                 try:
                     cursor.execute("""
                         INSERT INTO mention (dt, stock_id, message, source, url)
-                        VALUES (%s, %s, %s, 'stocks', %s)
+                        VALUES (%s, %s, %s, 'wallstreetbets', %s)
                     """, (submitted_time, stocks[cashtag], submission.title, submission.url))
 
                     connection.commit()
